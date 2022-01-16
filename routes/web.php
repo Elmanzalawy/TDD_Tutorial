@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthorsController;
 use App\Http\Controllers\BooksController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,4 +16,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::apiResource('books', BooksController::class);
-// Route::post('books', [BooksController::class, 'store']);
+Route::apiResource('authors', AuthorsController::class);
