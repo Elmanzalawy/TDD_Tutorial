@@ -40,30 +40,15 @@ class BooksController extends Controller
             "author" => "required|string",
         ]);
 
-        Book::create($data);
+        // $book = Book::create($data);
+        $book = new Book;
+        $book->title = $request->title;
+        $book->author = $request->author;
+        $book->save();
+
+        return $book->fresh();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -72,9 +57,11 @@ class BooksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Book $book)
     {
-        //
+        $book->update($request->all());
+
+        return redirect("books/{$book->id}");
     }
 
     /**
@@ -83,8 +70,9 @@ class BooksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        return redirect('/books');
     }
 }
